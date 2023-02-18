@@ -1,0 +1,23 @@
+{
+  "name": "learning_typescript",
+  "version": "1.0.0",
+  "description": "An online repository of my endeavors in learning how to program in TypeScript!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naddiemathkour/learning_typescript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naddiemathkour/learning_typescript/issues"
+  },
+  "homepage": "https://github.com/naddiemathkour/learning_typescript#readme",
+  "devDependencies": {
+    "@types/node": "^18.14.0"
+  }
+}
