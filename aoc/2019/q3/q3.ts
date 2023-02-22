@@ -119,7 +119,7 @@ function main(){
 
     console.log("Shortest distance = " + distance);
     console.log("Least amount of steps = " + steps); //93647 too low
-
+    console.log(plot3);
     // plot.forEach((value, key) => {
     //     console.log(`${key}: ${value}`);
     //   });
