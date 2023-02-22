@@ -1,72 +1,128 @@
-import fs from 'fs'
-
+import fs from 'fs';
+let x:number = 0;
+let y:number = 0;
+let steps = 0;
 let input = fs.readFileSync('input', 'utf-8').split('\n');
+let wire1 = input[0].split(',');
+let wire2 = input[1].split(',');
+let plot = new Map();
+let plot2 = new Map();
+plot.set(String([0,0]), 0);
+plot2.set(String([0,0]), 0);
+let plot3 = new Map();
+let total_value = 0;
 
-function parse_input(input:string[]):number[]{
-    let new_arr:number[] = [];
-    for(let i = 0; i < input.length; i++){
-        switch (input[i].charAt(0)) {
-            case 'R':
-                new_arr[i] = parseInt(input[i].replace(/\D/g, ''));
-                break;
-            case 'L':
-                new_arr[i] = parseInt(input[i].replace(/\D/g, '')) *-1;
-                break;
-            case 'U':
-                new_arr[i] = parseInt(input[i].replace(/\D/g, ''));
-                break;
-            case 'D':
-                new_arr[i] = parseInt(input[i].replace(/\D/g, '')) *-1;
-                break;
-            default:
-                break;
-        }
-    }
-    return new_arr;
-}
-
-function parse_tuples(input:Number[]):[Number,Number][]{
-    let tuple_arr:[Number,Number][] = [];
-    let j = 0;
-    tuple_arr[0] = [0,0]
-    for (let i = 1; i < Math.floor(input.length/2) + 2; i++){
-        tuple_arr[i] = [input[j++],input[j++]];
-    }
-    return tuple_arr;
-}
-
-function calculate_wire_endpoint(input:[Number,Number][]):[number,number]{
-    let x = 0;
-    let y = 0;
-    for(let i = 0; i < input.length - 1; i++){
-        x += input[i][0].valueOf();
-        y += input[i][1].valueOf();
-        console.log("(X, Y) = " + x + "," + y);
-    }
-    return [x,y];
-}
-
-function follow_wire_path(input:[Number,Number][], input_2:[Number,Number][]){
-    let line = [0,0]
-    for(let i = 1; i < input.length - 1; i++){
-        for(let j = 0; j < input_2.length - 1; j++){
-            if (i%2){
-                line = [input[i][0].valueOf() - input[i-1][0].valueOf(), input[i-1][1].valueOf()];
+function trace_wire(input:string) {
+    let value:number = parseInt(input.replace(/\D/g, ''));
+    total_value += value;
+    switch (input.charAt(0)) {
+        case 'R': //move right (increment)
+            for (x+=1; value > 1; x++){
+                plot.set(String([x,y]), ++steps);
+                value--;
             }
-        }
+            break;
+        case 'L': //move left (decrement)
+            for (x-=1; value > 1; x--){
+                plot.set(String([x,y]), ++steps);
+                value--;
+            }
+            break;
+        case 'U':
+            for (y+=1; value > 1; y++){
+                plot.set(String([x,y]), ++steps);
+                value--;
+            }
+            break;
+        case 'D':
+            for (y-=1; value > 1; y--){
+                plot.set(String([x,y]), ++steps);
+                value--;
+            }
+            break;
+        default:
+            break;
     }
 }
+
+function trace_wire2(input:string) {
+    let value:number = parseInt(input.replace(/\D/g, ''));
+    total_value += value;
+    switch (input.charAt(0)) {
+        case 'R': //move right (increment)
+            for (x+=1; value > 1; x++){
+                plot2.set(String([x,y]), ++steps);
+                value--;
+            }
+            break;
+        case 'L': //move left (decrement)
+            for (x-=1; value > 1; x--){
+                plot2.set(String([x,y]), ++steps);
+                value--;
+            }
+            break;
+        case 'U':
+            for (y+=1; value > 1; y++){
+                plot2.set(String([x,y]), ++steps);
+                value--;
+            }
+            break;
+        case 'D':
+            for (y-=1; value > 1; y--){
+                plot2.set(String([x,y]), ++steps);
+                value--;
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+function find_distance(str:String):number {
+    let values:any = str.split(',');
+    values = values.map(Number);
+    return Math.abs(values[0]) + Math.abs(values[1]);
+}
+
+
 
 function main(){
-    let wire1 = parse_tuples(parse_input(input[0].split(',')));
-    let wire2 = parse_tuples(parse_input(input[1].split(',')));
-    console.log(wire1);
-    console.log(wire2);
+    console.log("Wire 1 length: " + wire1.length);
+    for(let i = 0; i < wire1.length; i++){
+        trace_wire(wire1[i]);
+        steps++;
+    }
+    console.log("Wire1 total value: " + total_value);
+    console.log(steps);
+    x = y = steps = total_value = 0;
+    for(let i = 0; i < wire2.length; i++){
+        trace_wire2(wire2[i]);
+        steps++;
+    }
+    console.log("Wire2 total value: " + total_value);
+    console.log(steps);
 
-    let output1 = calculate_wire_endpoint(wire1);
-    let output2 = calculate_wire_endpoint(wire2);
-    console.log(output1);
-    console.log(output2);
+    plot.forEach((value, key) =>{
+        if(plot2.has(`${key}`)){
+            plot3.set(key, plot.get(key) + plot2.get(key));
+        }
+    });
+    //console.log(plot3);
+    let distance = steps = Infinity;
+    plot3.forEach((value, key) =>{
+        let new_distance = find_distance(key);
+        if (new_distance > 0 && new_distance < distance)
+            distance = new_distance;
+        if (plot3.get(key) < steps && plot3.get(key) > 0)
+            steps = plot3.get(key);
+    });
+
+    console.log("Shortest distance = " + distance);
+    console.log("Least amount of steps = " + steps); //93647 too low
+
+    // plot.forEach((value, key) => {
+    //     console.log(`${key}: ${value}`);
+    //   });
 }
-
+//console.log(wire1);
 main();
