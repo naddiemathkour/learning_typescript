@@ -1,7 +1,6 @@
-let any_arr:any[] = [];
+let arr:number[] = [];
+let arr2:string[] = [];
+let arr3:any[] = [];
 
-any_arr[0] = 69;
-any_arr[1] = "NICE";
-
-for(let i = 0; i < any_arr.length; i++)
-    console.log(any_arr[i]);
+arr3[0] = 0;
+arr3[1] = "Cringe"
