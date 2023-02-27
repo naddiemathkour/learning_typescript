@@ -87,20 +87,20 @@ function find_distance(str:String):number {
 
 
 function main(){
-    console.log("Wire 1 length: " + wire1.length);
+    //console.log("Wire 1 length: " + wire1.length);
     for(let i = 0; i < wire1.length; i++){
         trace_wire(wire1[i]);
         steps++;
     }
-    console.log("Wire1 total value: " + total_value);
-    console.log(steps);
+    //console.log("Wire1 total value: " + total_value);
+    //console.log(steps);
     x = y = steps = total_value = 0;
     for(let i = 0; i < wire2.length; i++){
         trace_wire2(wire2[i]);
         steps++;
     }
-    console.log("Wire2 total value: " + total_value);
-    console.log(steps);
+    //console.log("Wire2 total value: " + total_value);
+    //console.log(steps);
 
     plot.forEach((value, key) =>{
         if(plot2.has(`${key}`)){
@@ -119,7 +119,7 @@ function main(){
 
     console.log("Shortest distance = " + distance);
     console.log("Least amount of steps = " + steps); //93647 too low
-    console.log(plot3);
+    //console.log(plot3);
     // plot.forEach((value, key) => {
     //     console.log(`${key}: ${value}`);
     //   });

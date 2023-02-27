@@ -43,9 +43,7 @@ function check_plots(input:string){
                 value--;
             }
             break;
-        default:
-            break;
-    }
+    } steps++;
 }
 
 function trace_wire(input:string) {
@@ -75,10 +73,7 @@ function trace_wire(input:string) {
                 value--;
             }
             break;
-        default:
-            break;
-    }
-    steps++;
+    } steps++;
 }
 
 function find_distance(str:String):number {
@@ -87,9 +82,8 @@ function find_distance(str:String):number {
     return Math.abs(values[0]) + Math.abs(values[1]);
 }
 
-steps = value = Infinity;
 function get_outputs(input:Map<any, any>){
-    input.forEach((value, key) =>{
+    input.forEach((val:number, key:string) =>{
         let new_distance = find_distance(key);
         if (new_distance < value)
             value = new_distance;
@@ -106,16 +100,15 @@ function main(){
     plot = new Map();
     intersections = new Map();
     
-    x = y = 0;
-    steps = 1;
+    x = y = steps = 0;
     for(let i = 0; i < wire1.length; i++)
         trace_wire(wire1[i]);
-    
-        x = y = 0;
-    steps = 1;
+        
+    x = y = steps = 0;
     for (let i = 0; i < wire2.length; i++)
         check_plots(wire2[i]);
+
+    steps = value = Infinity;
     get_outputs(intersections);
 }
-
-main();
+main(); //489, 93654
