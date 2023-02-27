@@ -1,6 +1,6 @@
-import fs from 'fs'
+import { readFileSync } from 'fs';
 
-let input = fs.readFileSync('input', 'utf-8').split('\n');
+let input = readFileSync('input', 'utf-8').split('\n');
 
 function parse_input(input:string[]):number[]{
     let new_arr:number[] = [];

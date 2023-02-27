@@ -1,8 +1,8 @@
-import fs from 'fs';
+import { readFileSync } from 'fs';
 
 let x:number, y:number, steps:number, value:number, wire1:string[], wire2:string[];
 let plot:Map<any, any>, intersections:Map<any, any>;
-let input:string[] = fs.readFileSync('input', 'utf-8').split('\n');
+let input:string[] = readFileSync('input', 'utf-8').split('\n');
 
 function check_plots(input:string){
     value = parseInt(input.replace(/\D/g, ''));
