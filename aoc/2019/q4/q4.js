@@ -1,8 +1,7 @@
 var lower_bound = 158126;
 var upper_bound = 624574;
-var possibilities, parse_input;
+var possibilities = new Map();
 var curr = 0;
-possibilities = new Map();
 function check_current(arr) {
     for (var i = 0; i < arr.length - 1; i++)
         arr[i + 1] = (arr[i + 1] < arr[i]) ? arr[i] : arr[i + 1];
@@ -16,13 +15,10 @@ function check_adjencents(int) {
     return 0;
 }
 for (var i = lower_bound; i < upper_bound; i++) {
-    i = parseInt(check_current(i.toString().split('').map(Number)).join(''));
-    console.log(i);
+    i = parseInt(check_current(String(i).split('').map(Number)).join(''));
     if (i < upper_bound)
-        possibilities.set(i, check_adjencents(i));
+        possibilities.set(i, 0);
 }
-possibilities.forEach(function (val, key) {
-    if (val & 1)
-        curr++;
-});
+possibilities.forEach(function (val, key) { if (check_adjencents(key) & 1)
+    ++curr; });
 console.log(curr); //1665, 1131

@@ -1,8 +1,7 @@
-let lower_bound:number = 158126;
+const lower_bound:number = 158126;
 const upper_bound:number = 624574;
-let possibilities:Map<number,number>;
+let possibilities:Map<number,number> = new Map();
 let curr:number = 0;
-possibilities = new Map();
 
 function check_current(arr:number[]) : number[] {
     for(let i = 0; i < arr.length - 1; i++)
@@ -19,11 +18,11 @@ function check_adjencents(int:number) : number {
 }
 
 for(let i = lower_bound; i < upper_bound; i++){
-    i = parseInt(check_current(i.toString().split('').map(Number)).join(''));
+    i = parseInt(check_current(String(i).split('').map(Number)).join(''));
     if (i < upper_bound)
-        possibilities.set(i, check_adjencents(i));
+        possibilities.set(i, 0);
 }
-possibilities.forEach((val, key) => {
-    if (val&1) curr++;
-});
+
+possibilities.forEach((val:number, key:number) => { if (check_adjencents(key)&1) ++curr; });
+
 console.log(curr); //1665, 1131
