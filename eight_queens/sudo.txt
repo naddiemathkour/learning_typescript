@@ -1,0 +1,11 @@
+//input array size [8][8] and 8 queens
+//output a permutation in which 8 non-attacking queens are place on the board
+row <- 0;
+col <- 0;
+for col in 8 do
+    if(place queen())
+        remove_plays()
+        row <- row + 1
+    else 
+        continue;
+if()
