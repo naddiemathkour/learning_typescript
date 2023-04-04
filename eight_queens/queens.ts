@@ -8,7 +8,7 @@ for(let i = 0; i < 8; i++)
     gameboard[i] = [-1,-1,-1,-1,-1,-1,-1,-1];
 
 function map_new_board(board:number[][]):number[][]{
-    let new_board:number[][] = []
+    let new_board:number[][] = [];
     for(let i = 0; i < 8; i++)
         new_board[i] = board[i].map(Number);
     return new_board;
